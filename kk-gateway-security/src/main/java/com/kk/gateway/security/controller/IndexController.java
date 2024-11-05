@@ -1,4 +1,4 @@
-package com.kk.gateway.auth.controller;
+package com.kk.gateway.security.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
