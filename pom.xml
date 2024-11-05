@@ -52,6 +52,7 @@
         <module>kk-gateway-api</module>
         <module>kk-gateway-security</module>
         <module>kk-gateway-auth</module>
+        <module>kk-gateway-common</module>
     </modules>
 
     <dependencyManagement>

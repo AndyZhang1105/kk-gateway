@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.kk.gateway;
+package com.kk.gateway.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,10 +25,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-public class GatewayApplication {
+public class GatewayApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GatewayApplication.class, args);
+		SpringApplication.run(GatewayApiApplication.class, args);
 	}
 
 }

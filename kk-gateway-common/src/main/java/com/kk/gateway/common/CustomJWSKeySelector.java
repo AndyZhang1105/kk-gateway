@@ -1,4 +1,4 @@
-package com.kk.gateway.auth.dto;
+package com.kk.gateway.common;
 
 import com.nimbusds.jose.JWSHeader;
 import com.nimbusds.jose.proc.JWSKeySelector;

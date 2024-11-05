@@ -1,9 +1,9 @@
 package com.kk.gateway.auth.controller;
 
-import com.kk.gateway.auth.dto.JwtRequest;
-import com.kk.gateway.auth.dto.JwtResponse;
 import com.kk.gateway.auth.service.UserDetailsServiceImpl;
-import com.kk.gateway.auth.util.JwtUtils;
+import com.kk.gateway.common.JwtRequest;
+import com.kk.gateway.common.JwtResponse;
+import com.kk.gateway.common.util.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

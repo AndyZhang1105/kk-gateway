@@ -1,4 +1,4 @@
-package com.kk.gateway.conf;
+package com.kk.gateway.api.conf;
 
 import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayFlowRule;
 import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayRuleManager;

@@ -1,8 +1,8 @@
 package com.kk.gateway.auth.conf;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kk.gateway.auth.dto.JwtResponse;
-import com.kk.gateway.auth.util.JwtUtils;
+import com.kk.gateway.common.util.JwtUtils;
+import com.kk.gateway.common.JwtResponse;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,8 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -53,19 +51,20 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 		} catch (Exception e) {
 			// 解析失败，可能是令牌无效
 			logger.error("Failed to parse JWT token: " + token);
-			handleException(response, "Invalid JWT token", HttpStatus.UNAUTHORIZED);
+			handleException(response, JwtResponse.JWT_RESPONSE_CODE_FAIL, "Invalid JWT token", HttpStatus.FORBIDDEN);
 			return;
 		}
 
 		if(username == null || username.trim().isEmpty()) {
-			handleException(response, "Invalid username from JWT token", HttpStatus.UNAUTHORIZED);
+			handleException(response, JwtResponse.JWT_RESPONSE_CODE_FAIL, "Invalid username from JWT token", HttpStatus.FORBIDDEN);
 			return;
 		}
 
 		// 如果用户名不为空且当前请求没有认证信息
 		if (SecurityContextHolder.getContext().getAuthentication() == null) {
 			// 验证令牌是否有效
-			if (JwtUtils.validateToken(token, username)) {
+			final JwtResponse jwtResponse = JwtUtils.validateToken(token, username);
+			if (jwtResponse.getCode() == JwtResponse.JWT_RESPONSE_CODE_SUCCESS) {
 				// 加载用户详细信息
 				UserDetails userDetails = new User("admin", "", AuthorityUtils.commaSeparatedStringToAuthorityList("ADMIN"));
 
@@ -76,7 +75,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 				// 设置认证信息到安全上下文
 				SecurityContextHolder.getContext().setAuthentication(authToken);
 			} else {
-				handleException(response, "JWT token validation failed", HttpStatus.UNAUTHORIZED);
+				handleException(response, jwtResponse.getCode(), jwtResponse.getMsg(), HttpStatus.UNAUTHORIZED);
 				return;
 			}
 		}
@@ -85,7 +84,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 		chain.doFilter(request, response);
 	}
 
-	private void handleException(HttpServletResponse response, String message, HttpStatus status) throws IOException {
+	private void handleException(HttpServletResponse response, int code, String message, HttpStatus status) throws IOException {
 		response.setStatus(status.value());
 		response.setContentType("application/json;charset=UTF-8");
 

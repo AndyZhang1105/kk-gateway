@@ -1,10 +1,8 @@
 package com.kk.gateway.auth.conf;
 
-import com.kk.gateway.auth.service.UserDetailsServiceImpl;
-import com.kk.gateway.auth.util.JwtUtils;
+import com.kk.gateway.common.util.JwtUtils;
 import com.nimbusds.jose.proc.SecurityContext;
 import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

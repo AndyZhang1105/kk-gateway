@@ -1,6 +1,7 @@
-package com.kk.gateway.auth.util;
+package com.kk.gateway.common.util;
 
-import com.kk.gateway.auth.dto.CustomJWSKeySelector;
+import com.kk.gateway.common.CustomJWSKeySelector;
+import com.kk.gateway.common.JwtResponse;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
@@ -15,12 +16,17 @@ import org.slf4j.LoggerFactory;
 import javax.crypto.spec.SecretKeySpec;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Objects;
+import java.util.Optional;
+
+import static com.kk.gateway.common.JwtResponse.JWT_RESPONSE_CODE_FAIL;
+import static com.kk.gateway.common.JwtResponse.JWT_RESPONSE_CODE_SUCCESS;
 
 public class JwtUtils {
 	private static final Logger log = LoggerFactory.getLogger(JwtUtils.class);
 
 	public static final String SECRET_KEY = "this_is_your_secret_key_for_sign"; // 密钥
-	public static final long JWT_EXPIRATION_IN_MS = 20L * 1000; // 令牌过期时间，单位毫秒
+	public static final long JWT_EXPIRATION_IN_MS = 24 * 60 * 60 * 1000; // 令牌过期时间，单位毫秒
 
 	// 生成 JWT 令牌
 	public static String generateToken(String subject) {
@@ -48,33 +54,40 @@ public class JwtUtils {
 		}
 	}
 
+	public static JwtResponse validateToken(String token) {
+		return validateToken(token, null);
+	}
+
 	// 验证 JWT 令牌
-	public static boolean validateToken(String token, String subject) {
+	public static JwtResponse validateToken(String token, String subject) {
 		try {
 			SignedJWT signedJWT = SignedJWT.parse(token);
 			JWSVerifier verifier = new MACVerifier(SECRET_KEY.getBytes());
 
 			// 验证签名
 			if (!signedJWT.verify(verifier)) {
-				return false;
+				return new JwtResponse(JWT_RESPONSE_CODE_FAIL, "验证签名失败", "");
 			}
 
 			// 验证载荷
-			JWTClaimsSet claimsSet = signedJWT.getJWTClaimsSet();
-			if (subject != null && !subject.equals(claimsSet.getSubject())) {
-				return false;
+			final JWTClaimsSet claimsSet = signedJWT.getJWTClaimsSet();
+			final String claimsSubject = Optional.of(claimsSet.getSubject()).orElse("").trim();
+			if (subject != null && !subject.trim().equals(claimsSubject)) {
+				return new JwtResponse(JWT_RESPONSE_CODE_FAIL, "验证签名载荷失败", "");
+			} else if (claimsSubject.isBlank()) {
+				return new JwtResponse(JWT_RESPONSE_CODE_FAIL, "验证签名载荷不合法", "");
 			}
 
 			// 检查过期时间
 			Date expirationTime = claimsSet.getExpirationTime();
 			if (expirationTime != null && expirationTime.before(new Date())) {
-				return false;
+				return new JwtResponse(JWT_RESPONSE_CODE_FAIL, "验证签名已过期", "");
 			}
 
-			return true;
+			return new JwtResponse(JWT_RESPONSE_CODE_SUCCESS, "", token);
 		} catch (ParseException | JOSEException e) {
 			log.error(e.getMessage());
-			return false;
+			return new JwtResponse(JWT_RESPONSE_CODE_FAIL, "验证签名异常", "");
 		}
 	}
 
