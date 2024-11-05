@@ -1,13 +1,10 @@
 package com.kk.gateway.auth.conf;
 
-import com.kk.gateway.auth.service.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -43,7 +40,10 @@ public class SecurityConfig {
 				)
 				.logout(logout ->
 						logout
+								.logoutUrl("/logout")
 								.logoutSuccessUrl("/login?logout")  // 注销成功后重定向到登录页面
+								.invalidateHttpSession(true) // 使会员失效
+								.deleteCookies("JSESSIONID")
 								.permitAll()  // 注销页面允许所有人访问
 				);
 

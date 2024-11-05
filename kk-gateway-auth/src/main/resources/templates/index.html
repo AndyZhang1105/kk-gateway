@@ -3,7 +3,16 @@
     <title>Hello Security!</title>
 </head>
 <body>
-<h1>Hello Security!</h1>
-<a id="logout" th:href="@{/logout}">Log Out</a>
+    <h1>Hello Security!</h1>
+
+    <!-- 显示用户名或请登录 -->
+    <p th:text="${currentUserName != null ? 'Hello, ' + currentUserName + '!' : 'Please log in'}"></p>
+
+    <ul>
+        <li><a th:href="@{/index}">Home</a></li>
+        <li><a th:if="${currentUserName}" th:href="@{/logout}">Logout</a></li>
+        <li><a th:unless="${currentUserName}" th:href="@{/login}">Login</a></li>
+    </ul>
+
 </body>
 </html>
