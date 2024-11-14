@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * 用户管理业务类
+ * @author Zal
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

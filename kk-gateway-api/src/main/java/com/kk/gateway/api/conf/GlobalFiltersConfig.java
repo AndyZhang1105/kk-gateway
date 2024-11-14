@@ -19,11 +19,14 @@ import reactor.core.publisher.Mono;
 
 import java.util.Map;
 
+/**
+ * @author Zal
+ */
 @Configuration
 public class GlobalFiltersConfig {
 
-	private static final ObjectMapper objectMapper = new ObjectMapper();
-	private static final AntPathMatcher pathMatcher = new AntPathMatcher();
+	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+	private static final AntPathMatcher PATH_MATCHER = new AntPathMatcher();
 
 	@Autowired
 	private JwtProperties jwtProperties;
@@ -35,7 +38,7 @@ public class GlobalFiltersConfig {
 			final String path = exchange.getRequest().getPath().value();
 
 			// 检查请求路径是否在不需要 token 校验的路径列表中
-			if (jwtProperties.getSkipPaths().stream().anyMatch(pattern -> pathMatcher.match(pattern, path))) {
+			if (jwtProperties.getSkipPaths().stream().anyMatch(pattern -> PATH_MATCHER.match(pattern, path))) {
 				// 如果路径匹配，跳过 token 校验
 				return chain.filter(exchange);
 			}
@@ -77,7 +80,7 @@ public class GlobalFiltersConfig {
 
 		Map<String, String> body = Map.of("error", status.getReasonPhrase(), "message", message);
 		try {
-			DataBuffer buffer = response.bufferFactory().wrap(objectMapper.writeValueAsBytes(body));
+			DataBuffer buffer = response.bufferFactory().wrap(OBJECT_MAPPER.writeValueAsBytes(body));
 			return response.writeWith(Mono.just(buffer));
 		} catch (Exception e) {
 			// 处理序列化异常

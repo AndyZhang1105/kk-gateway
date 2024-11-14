@@ -4,12 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.kk.gateway</groupId>
-        <artifactId>kk-gateway</artifactId>
-        <version>1.0.0</version>
+        <groupId>com.kk.arch</groupId>
+        <artifactId>kk-arch-dubbo-service</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath/>
     </parent>
 
-    <artifactId>kk-gateway-auth</artifactId>
+    <artifactId>kk-gateway-auth-service</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -85,6 +86,13 @@
         <dependency>
             <groupId>com.kk.gateway</groupId>
             <artifactId>kk-gateway-common</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.kk.gateway</groupId>
+            <artifactId>kk-gateway-auth-remote</artifactId>
             <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>

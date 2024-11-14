@@ -51,8 +51,9 @@
     <modules>
         <module>kk-gateway-api</module>
         <module>kk-gateway-security</module>
-        <module>kk-gateway-auth</module>
+        <module>kk-gateway-auth-service</module>
         <module>kk-gateway-common</module>
+        <module>kk-gateway-auth-remote</module>
     </modules>
 
     <dependencyManagement>
