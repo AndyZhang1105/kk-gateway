@@ -4,6 +4,7 @@ import com.kk.gateway.auth.service.UserDetailsServiceImpl;
 import com.kk.gateway.common.JwtRequest;
 import com.kk.gateway.common.JwtResponse;
 import com.kk.gateway.common.util.JwtUtils;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController {
 
-	@Autowired
+	@Resource
 	private AuthenticationManager authenticationManager;
 
-	@Autowired
+	@Resource
 	private UserDetailsServiceImpl userDetailsService;
 
 	@PostMapping("/auth")

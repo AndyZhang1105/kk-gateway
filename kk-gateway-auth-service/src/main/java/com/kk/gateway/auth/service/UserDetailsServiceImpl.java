@@ -1,5 +1,6 @@
 package com.kk.gateway.auth.service;
 
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-	@Autowired
+	@Resource
 	private PasswordEncoder passwordEncoder;
 
 	//@Override

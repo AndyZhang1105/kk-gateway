@@ -1,6 +1,7 @@
 package com.kk.gateway.auth.conf;
 
 import com.kk.gateway.auth.service.UserDetailsServiceImpl;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,10 +13,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class AuthConfig {
 
-	@Autowired
+	@Resource
 	private UserDetailsServiceImpl userDetailsService;
 
-	@Autowired
+	@Resource
 	private PasswordEncoder passwordEncoder;
 
 	@Bean
