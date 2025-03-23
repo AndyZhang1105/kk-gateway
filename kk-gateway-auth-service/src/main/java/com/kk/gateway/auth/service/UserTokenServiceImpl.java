@@ -1,6 +1,6 @@
 package com.kk.gateway.auth.service;
 
-import com.kk.gateway.auth.dto.UserDto;
+import com.kk.arch.remote.dto.UserDto;
 import com.kk.gateway.auth.remote.UserTokenService;
 import org.apache.dubbo.config.annotation.DubboService;
 

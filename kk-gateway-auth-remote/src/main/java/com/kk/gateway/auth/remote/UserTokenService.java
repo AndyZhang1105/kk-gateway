@@ -1,8 +1,6 @@
 package com.kk.gateway.auth.remote;
 
-import com.kk.gateway.auth.dto.UserDto;
-
-import java.util.Map;
+import com.kk.arch.remote.dto.*;
 
 /**
  * @author Zal

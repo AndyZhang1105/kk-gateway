@@ -7,6 +7,7 @@
         <groupId>com.kk.gateway</groupId>
         <artifactId>kk-gateway</artifactId>
         <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>kk-gateway-auth-remote</artifactId>
@@ -18,10 +19,13 @@
     </properties>
 
     <dependencies>
+
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>com.kk.arch</groupId>
+            <artifactId>kk-arch-remote-dependencies</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
+
     </dependencies>
 
 </project>
