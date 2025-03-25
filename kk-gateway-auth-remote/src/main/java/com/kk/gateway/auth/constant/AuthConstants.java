@@ -1,4 +1,4 @@
-package com.kk.gateway.auth.contants;
+package com.kk.gateway.auth.constant;
 
 /**
  * @author Zal

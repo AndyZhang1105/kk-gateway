@@ -1,7 +1,10 @@
-package com.kk.gateway.auth.service;
+package com.kk.gateway.web.service.impl;
 
+import com.kk.arch.remote.dto.UserDto;
+import com.kk.arch.remote.exception.BusinessException;
+import com.kk.gateway.auth.remote.UserQueryRemote;
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,18 +23,22 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Resource
 	private PasswordEncoder passwordEncoder;
 
-	//@Override
+	@DubboReference
+	private UserQueryRemote userQueryRemote;
+
+	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		//  1、模拟根据username 查询数据库
-		if (!"admin".equals(username)) {
-			throw new UsernameNotFoundException("用户名或密码错误!");
+		// 1. 查询数据库是否存在此用户
+		final String password = passwordEncoder.encode("admin");
+		final UserDto userDto = userQueryRemote.queryByNameAndPwd(username, password);
+		if(userDto == null) {
+			throw new BusinessException(-1, "用户不存在!");
 		}
 
-		// 2、根据查询到的对象 比对 密码
-		String password = passwordEncoder.encode("admin");
-
 		//  commaSeparatedStringToAuthorityList方法: 将字符串分割，转化为权限列表，默认是用 逗号 作为分隔符
-		return new User("admin", password, AuthorityUtils.commaSeparatedStringToAuthorityList("ADMIN"));
+		// final User user = new User("admin", password, AuthorityUtils.commaSeparatedStringToAuthorityList("ADMIN"));
+
+		return User.builder().username(username).password(password).roles("ADMIN").authorities("ADMIN").build();
 	}
 
 }

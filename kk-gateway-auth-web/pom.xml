@@ -6,15 +6,12 @@
     <parent>
         <groupId>com.kk.gateway</groupId>
         <artifactId>kk-gateway</artifactId>
-        <version>${revision}</version>
-        <relativePath>../pom.xml</relativePath>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>kk-gateway-auth-service</artifactId>
+    <artifactId>kk-gateway-auth-web</artifactId>
     <packaging>jar</packaging>
     <version>${revision}</version>
-    <name>kk auth service</name>
-    <description>The real business logics of the auth project.</description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -47,7 +44,7 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <!-- dubbo的依赖 -->
@@ -97,15 +94,15 @@
         </dependency>
 
         <dependency>
-            <groupId>com.kk.gateway</groupId>
-            <artifactId>kk-gateway-common</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
             <version>10.1.28</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.kk.gateway</groupId>
+            <artifactId>kk-gateway-common</artifactId>
+            <version>${revision}</version>
         </dependency>
 
         <dependency>

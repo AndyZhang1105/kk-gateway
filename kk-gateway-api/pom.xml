@@ -9,8 +9,9 @@
         <version>1.0.0</version>
     </parent>
 
-    <groupId>com.kk.gateway</groupId>
     <artifactId>kk-gateway-api</artifactId>
+    <version>${revision}</version>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

@@ -5,7 +5,7 @@ import com.kk.arch.remote.dto.*;
 /**
  * @author Zal
  */
-public interface UserTokenService {
+public interface UserTokenRemote {
 
     /**
      * get user info by token

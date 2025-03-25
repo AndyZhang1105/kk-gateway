@@ -1,4 +1,4 @@
-package com.kk.gateway.auth.conf;
+package com.kk.gateway.web.conf;
 
 import com.kk.gateway.common.util.JwtUtils;
 import com.nimbusds.jose.proc.SecurityContext;
@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class WebSecurityConfig {
 
 	/**
 	 * /api/** 和 /admin/** 路径下的请求将不受 CSRF 保护的影响，而其他路径仍然会受到 CSRF 保护。

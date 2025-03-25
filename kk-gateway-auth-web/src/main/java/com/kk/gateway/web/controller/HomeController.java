@@ -1,4 +1,4 @@
-package com.kk.gateway.auth.controller;
+package com.kk.gateway.web.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,7 +14,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(HttpServletRequest request, HttpServletResponse response) {
-		return "home is here.";
+		return "/home is here.";
 	}
 
 	@RequestMapping(value = "/admin/info", method = RequestMethod.GET)

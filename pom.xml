@@ -4,12 +4,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.kk.arch</groupId>
-        <artifactId>kk-arch</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-        <relativePath/>
-    </parent>
 
     <groupId>com.kk.gateway</groupId>
     <artifactId>kk-gateway</artifactId>
@@ -37,6 +31,22 @@
         <module>kk-gateway-auth-service</module>
         <module>kk-gateway-common</module>
         <module>kk-gateway-auth-remote</module>
+        <module>kk-gateway-auth-web</module>
     </modules>
+
+    <dependencyManagement>
+
+        <dependencies>
+            <!-- 导入BOM -->
+            <dependency>
+                <groupId>com.kk.arch</groupId>
+                <artifactId>kk-arch-bom-dependencies</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
 
 </project>

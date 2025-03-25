@@ -1,4 +1,4 @@
-package com.kk.gateway.auth.conf;
+package com.kk.gateway.web.conf;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kk.gateway.common.util.JwtUtils;
@@ -51,12 +51,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 		} catch (Exception e) {
 			// 解析失败，可能是令牌无效
 			logger.error("Failed to parse JWT token: " + token);
-			handleException(response, JwtResponse.JWT_RESPONSE_CODE_FAIL, "Invalid JWT token", HttpStatus.FORBIDDEN);
+			this.handleJwtException(response, JwtResponse.JWT_RESPONSE_CODE_FAIL, "Invalid JWT token", HttpStatus.FORBIDDEN);
 			return;
 		}
 
 		if(username == null || username.trim().isEmpty()) {
-			handleException(response, JwtResponse.JWT_RESPONSE_CODE_FAIL, "Invalid username from JWT token", HttpStatus.FORBIDDEN);
+			this.handleJwtException(response, JwtResponse.JWT_RESPONSE_CODE_FAIL, "Invalid username from JWT token", HttpStatus.FORBIDDEN);
 			return;
 		}
 
@@ -66,7 +66,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 			final JwtResponse jwtResponse = JwtUtils.validateToken(token, username);
 			if (jwtResponse.getCode() == JwtResponse.JWT_RESPONSE_CODE_SUCCESS) {
 				// 加载用户详细信息
-				UserDetails userDetails = new User("admin", "", AuthorityUtils.commaSeparatedStringToAuthorityList("ADMIN"));
+				UserDetails userDetails = User.builder().username(username).password("").roles("ADMIN").build();
 
 				// 创建认证信息
 				UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -75,7 +75,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 				// 设置认证信息到安全上下文
 				SecurityContextHolder.getContext().setAuthentication(authToken);
 			} else {
-				handleException(response, jwtResponse.getCode(), jwtResponse.getMsg(), HttpStatus.UNAUTHORIZED);
+				this.handleJwtException(response, jwtResponse.getCode(), jwtResponse.getMsg(), HttpStatus.UNAUTHORIZED);
 				return;
 			}
 		}
@@ -84,7 +84,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 		chain.doFilter(request, response);
 	}
 
-	private void handleException(HttpServletResponse response, int code, String message, HttpStatus status) throws IOException {
+	private void handleJwtException(HttpServletResponse response, int code, String message, HttpStatus status) throws IOException {
 		response.setStatus(status.value());
 		response.setContentType("application/json;charset=UTF-8");
 
