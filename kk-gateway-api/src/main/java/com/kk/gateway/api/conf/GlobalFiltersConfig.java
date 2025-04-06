@@ -4,7 +4,7 @@ import com.alibaba.nacos.api.utils.StringUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kk.gateway.common.JwtResponse;
 import com.kk.gateway.common.util.JwtUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +28,7 @@ public class GlobalFiltersConfig {
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 	private static final AntPathMatcher PATH_MATCHER = new AntPathMatcher();
 
-	@Autowired
+	@Resource
 	private JwtProperties jwtProperties;
 
 	@Bean

@@ -1,15 +1,14 @@
 package com.kk.gateway.web.conf;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kk.gateway.common.util.JwtUtils;
 import com.kk.gateway.common.JwtResponse;
+import com.kk.gateway.common.util.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

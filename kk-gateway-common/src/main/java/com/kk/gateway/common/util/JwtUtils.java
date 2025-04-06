@@ -89,8 +89,7 @@ public class JwtUtils {
             }
 
             return new JwtResponse(JWT_RESPONSE_CODE_SUCCESS, "", token);
-        }
-        catch (ParseException | JOSEException e) {
+        } catch (ParseException | JOSEException e) {
             log.error(e.getMessage());
             return new JwtResponse(JWT_RESPONSE_CODE_FAIL, "验证签名异常", "");
         }

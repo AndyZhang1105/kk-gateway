@@ -1,20 +1,22 @@
 package com.kk.gateway.security.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 /**
  * 用户管理业务类
  * 这里暂进没用到，如果需要自定义用户的验证查询操作，在SecurityConfig里注释掉UserDetailsService的Bean，启用这个
  */
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-	@Autowired
+	@Resource
 	private PasswordEncoder passwordEncoder;
 
 	//@Override
