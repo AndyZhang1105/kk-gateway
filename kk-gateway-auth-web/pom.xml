@@ -70,6 +70,10 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
 
         <!-- dubbo的依赖 -->
         <dependency>
@@ -139,7 +143,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>org.apache.dubbo.samples.quickstart.QuickStartApplication</mainClass>
+                    <mainClass>com.kk.gateway.web.GatewayAuthWebApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
