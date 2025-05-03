@@ -32,7 +32,7 @@ public class WebSecurityConfig {
 				.csrf(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(authorizeRequests ->
 						authorizeRequests
-								.requestMatchers("/login", "/register", "/auth").permitAll()  // 登录和注册页面无需认证
+								.requestMatchers("/login", "/register", "/auth/**").permitAll()  // 登录和注册页面无需认证
 								.requestMatchers("/public/**").permitAll()  // 允许所有人访问 /public/**
 								.requestMatchers("/admin/**").hasRole("ADMIN")  // 只有管理员可以访问 /admin/**
 								.anyRequest().authenticated()  // 其他请求需要认证

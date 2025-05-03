@@ -28,7 +28,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 		String requestURI = request.getRequestURI();
 
 		// 如果请求路径是 /auth，则跳过 JWT 验证
-		if ("/auth".equals(requestURI)) {
+		if (requestURI.startsWith("/auth/")) {
 			chain.doFilter(request, response);
 			return;
 		}
