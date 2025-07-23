@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.kk.gateway</groupId>
         <artifactId>kk-gateway</artifactId>
-        <version>${revision}</version>
+        <version>1.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>kk-gateway-auth-remote</artifactId>
-    <version>${revision}</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
